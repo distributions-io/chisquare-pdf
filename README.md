@@ -11,7 +11,7 @@ The [probability density function](https://en.wikipedia.org/wiki/Probability_den
 	<br>
 </div>
 
-for `x  >= 0`, for `x < 0` it evaluates to zero. `df` is the degrees of freedom of the [Chi-squared distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution.
+for `x  >= 0`, for `x < 0` it evaluates to zero. `df` is the degrees of freedom of the [Chi-squared distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution).
 
 ## Installation
 
