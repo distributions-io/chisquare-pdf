@@ -7,11 +7,11 @@ Probability Density Function
 The [probability density function](https://en.wikipedia.org/wiki/Probability_density_function) (PDF) for a [Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) random variable is
 
 <div class="equation" align="center" data-raw-text="" data-equation="eq:pdf_function">
-	<img src="" alt="Probability density function (PDF) for a Chi-squared distribution.">
+	<img src="https://cdn.rawgit.com/distributions-io/chisquare-pdf/71cba5e8a69f15d0651267876c6724ef6fd7401e/docs/img/eqn.svg" alt="Probability density function (PDF) for a Chi-squared distribution.">
 	<br>
 </div>
 
-where `df` is the degrees of freedom.
+for `x  >= 0`, for `x < 0` it evaluates to zero. `df` is the degrees of freedom of the [Chi-squared distribution](https://en.wikipedia.org/wiki/Chi-squared_distribution.
 
 ## Installation
 
@@ -39,19 +39,20 @@ var matrix = require( 'dstructs-matrix' ),
 	x,
 	i;
 
+// by default, df = 1
 out = pdf( 1 );
-// returns
+// returns ~0.242
 
 out = pdf( -1 );
 // returns 0
 
 x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 out = pdf( x );
-// returns [...]
+// returns [ +Infinity, ~0.439, ~0.242, ~0.154, ~0.104, ~0.073 ]
 
 x = new Int8Array( x );
 out = pdf( x );
-// returns Float64Array( [...] )
+// returns Float64Array( [+Infinity,~0.439,~0.242,~0.154,~0.104,~0.073] )
 
 x = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
@@ -66,9 +67,9 @@ mat = matrix( x, [3,2], 'float32' );
 
 out = pdf( mat );
 /*
-	[
-
-	   ]
+	[ +Infinity ~0.439
+	  ~0.242    ~0.154
+	  ~0.104    ~0.073 ]
 */
 ```
 
@@ -81,7 +82,7 @@ The function accepts the following `options`:
 *	__path__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path.
 *	__sep__: [deepget](https://github.com/kgryte/utils-deep-get)/[deepset](https://github.com/kgryte/utils-deep-set) key path separator. Default: `'.'`.
 
-A [Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) distribution is a function of 1 parameter(s): `df`(degrees of freedom). By default, `df` is equal to `1`. To adjust either parameter, set the corresponding option(s).
+A [Chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) distribution is a function of one parameter: `df`(degrees of freedom). By default, `df` is equal to `1`. To adjust the parameter, set the corresponding option.
 
 ``` javascript
 var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
@@ -89,7 +90,7 @@ var x = [ 0, 0.5, 1, 1.5, 2, 2.5 ];
 var out = pdf( x, {
 	'df': 3,
 });
-// returns [...]
+// returns [ 0, ~0.22, ~0.242, ~0.231, ~0.208, ~0.181 ]
 ```
 
 For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
@@ -111,7 +112,7 @@ function getValue( d, i ) {
 var out = pdf( data, {
 	'accessor': getValue
 });
-// returns [...]
+// returns [  +Infinity, ~0.439, ~0.242, ~0.154, ~0.104, ~0.073 ]
 ```
 
 
@@ -131,14 +132,14 @@ var out = pdf( data, {
 	'path': 'x/1',
 	'sep': '/'
 });
-/*
+/* 
 	[
-		{'x':[0,]},
-		{'x':[1,]},
-		{'x':[2,]},
-		{'x':[3,]},
-		{'x':[4,]},
-		{'x':[5,]}
+		{'x':[0,+Infinity]},
+		{'x':[1,~0.439]},
+		{'x':[2,~0.242]},
+		{'x':[3,~0.154]},
+		{'x':[4,~0.104]},
+		{'x':[5,~0.073]}
 	]
 */
 
@@ -151,18 +152,18 @@ By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/
 ``` javascript
 var x, out;
 
-x = new Int8Array( [0,1,2,3,4] );
+x = new Float32Array( [0.1,0.2,0.3,0.4] );
 
 out = pdf( x, {
 	'dtype': 'int32'
 });
-// returns Int32Array( [...] )
+// returns Int32Array( [1,0,0,0] )
 
 // Works for plain arrays, as well...
-out = pdf( [0,0.5,1,1.5,2], {
+out = pdf( [0.1,0.2,0.3,0.4], {
 	'dtype': 'uint8'
 });
-// returns Uint8Array( [...] )
+// returns Uint8Array( [1,0,0,0] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
@@ -179,7 +180,7 @@ x = [ 0, 0.5, 1, 1.5, 2 ];
 out = pdf( x, {
 	'copy': false
 });
-// returns [...]
+// returns [ +Infinity, ~0.439, ~0.242, ~0.154, ~0.104, ~0.073 ]
 
 bool = ( x === out );
 // returns true
@@ -199,9 +200,9 @@ out = pdf( mat, {
 	'copy': false
 });
 /*
-	[
-
-	   ]
+	[ +Infinity ~0.439
+	  ~0.242    ~0.154
+	  ~0.104    ~0.073 ]
 */
 
 bool = ( mat === out );
