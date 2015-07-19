@@ -2,7 +2,7 @@ options( digits = 16 );
 library( jsonlite );
 
 
-df = 1
+df = 8
 x = c( -5, -2.5, 0, 2.5, 5 )
 y = dchisq( x, df )
 

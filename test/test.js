@@ -234,7 +234,7 @@ describe( 'distributions-chi-squared-pdf', function tests() {
 			expected,
 			i;
 
-		expected = new Float32( validationData.expected.map( function( d ) {
+		expected = new Float32Array( validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
 		}) );
 
